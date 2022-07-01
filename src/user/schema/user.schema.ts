@@ -10,6 +10,9 @@ export class User {
   id: string;
 
   @Prop()
+  name: string;
+
+  @Prop()
   mbti: string;
 
   @Prop()
