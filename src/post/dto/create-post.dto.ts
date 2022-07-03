@@ -1,9 +1,6 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class CreatePostDto {
-  // @IsString()
-  // readonly id: string;
-
   @IsString()
   readonly userId: string;
 
@@ -28,9 +25,9 @@ export class CreatePostDto {
   @IsBoolean()
   readonly isDeleted: boolean;
 
-  @IsString()
-  readonly created: string;
+  @IsNumber()
+  readonly created: number;
 
-  @IsString()
-  readonly updated: string;
+  @IsNumber()
+  readonly updated: number;
 }

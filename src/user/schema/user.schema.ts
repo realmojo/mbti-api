@@ -19,7 +19,7 @@ export class User {
   status: USER_STATUS;
 
   @Prop()
-  created: string;
+  created: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

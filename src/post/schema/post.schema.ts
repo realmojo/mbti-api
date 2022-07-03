@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { POST_STATUS } from './constants';
 
 export type PostDocument = Post & Document;
 
@@ -30,10 +31,13 @@ export class Post {
   isDeleted: boolean;
 
   @Prop()
-  created: string;
+  status: POST_STATUS;
 
   @Prop()
-  updated: string;
+  created: number;
+
+  @Prop()
+  updated: number;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

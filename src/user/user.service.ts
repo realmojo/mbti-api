@@ -20,4 +20,8 @@ export class UserService {
     const createUser = new this.userModel(createUserDto);
     return createUser.save();
   }
+
+  async getUser(id: string): Promise<User | undefined> {
+    return await this.findOne(id);
+  }
 }

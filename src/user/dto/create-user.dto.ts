@@ -14,5 +14,5 @@ export class CreateUserDto {
   readonly status: string;
 
   @IsString()
-  readonly created: string;
+  readonly created: number;
 }
