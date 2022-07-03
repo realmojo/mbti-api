@@ -22,7 +22,7 @@ export class AlarmController {
   }
 
   // 알람 읽은거
-  @Post('/:_id')
+  @Post('/readed/:_id')
   async updateAlarm(@Param() param): Promise<Alarm | undefined> {
     console.log('update alarms');
     const { _id } = param;

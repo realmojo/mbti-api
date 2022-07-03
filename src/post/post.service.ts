@@ -63,6 +63,9 @@ export class PostService {
           },
         },
         { $unwind: '$userInfo' },
+        { $sort: { created: -1 } },
+        { $skip: skip },
+        { $limit: limit },
       ]);
     }
   }

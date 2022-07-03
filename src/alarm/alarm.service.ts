@@ -28,6 +28,7 @@ export class AlarmService {
         },
       },
       { $unwind: '$postInfo' },
+      { $sort: { created: -1 } },
       { $limit: 20 },
     ]);
   }
