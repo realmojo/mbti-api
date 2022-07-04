@@ -33,6 +33,18 @@ export class PostController {
     return data;
   }
 
+  @Get('/mylist')
+  async getMyPostList(@Query() query): Promise<Document[]> {
+    const { userId, page } = query;
+    const params = {
+      userId,
+      page: Number(page),
+    };
+    console.log(params);
+    const data = await this.postService.getMyPostList(params);
+    return data;
+  }
+
   @Get('/:_id')
   async getPost(@Param() param): Promise<any> {
     const { _id } = param;

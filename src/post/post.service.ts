@@ -70,6 +70,27 @@ export class PostService {
     }
   }
 
+  async getMyPostList({ userId, page }): Promise<Post[] | undefined> {
+    const limit = 5;
+    // const offset = 3;
+    const skip = limit * (page - 1);
+    return await this.postModel.aggregate([
+      { $match: { userId: userId } },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: 'id',
+          as: 'userInfo',
+        },
+      },
+      { $unwind: '$userInfo' },
+      { $sort: { created: -1 } },
+      { $skip: skip },
+      { $limit: limit },
+    ]);
+  }
+
   async getPost(_id: string): Promise<any | undefined> {
     return await this.postModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(_id) } },
