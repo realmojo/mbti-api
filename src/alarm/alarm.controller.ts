@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param } from '@nestjs/common';
 import { AlarmService } from './alarm.service';
 import { Alarm } from './schema/alarm.schema';
 
