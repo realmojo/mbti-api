@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './schema/user.schema';
 
@@ -13,9 +13,16 @@ export class UserController {
     console.log(userId);
     return await this.userService.getUser(userId);
   }
+
   @Post()
   async addUser(@Body() req): Promise<User> {
     console.log('add user');
     return await this.userService.addUser(req);
+  }
+
+  @Patch()
+  async updateUser(@Body() req): Promise<User> {
+    console.log('update user');
+    return await this.userService.updateUser(req);
   }
 }

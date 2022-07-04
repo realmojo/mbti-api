@@ -5,10 +5,12 @@ import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { HistoryModule } from 'src/history/history.module';
 import { CommentModule } from 'src/comment/comment.module';
+import { BookmarkModule } from 'src/bookmark/bookmark.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
     HistoryModule,
+    BookmarkModule,
     forwardRef(() => CommentModule),
   ],
   controllers: [PostController],

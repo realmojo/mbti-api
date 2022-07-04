@@ -24,4 +24,14 @@ export class UserService {
   async getUser(id: string): Promise<User | undefined> {
     return await this.findOne(id);
   }
+
+  async updateUser(params): Promise<User | undefined> {
+    const filter = {
+      id: params.id,
+    };
+    const set = {
+      $set: { mbti: params.mbti },
+    };
+    return await this.userModel.findOneAndUpdate(filter, set, { new: true });
+  }
 }

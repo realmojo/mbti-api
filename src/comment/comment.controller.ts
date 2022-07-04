@@ -73,7 +73,7 @@ export class CommentController {
   @Post()
   async addComment(@Body() req): Promise<Comment> {
     console.log('add comment');
-    const { postId, targetUserId } = req;
+    const { postId, targetUserId, userId } = req;
     const params = {
       ...req, // userId, targetUserId, PostId, comment, parent
       likeCount: 0,
@@ -84,15 +84,17 @@ export class CommentController {
     const data = await this.commentService.addComment(params);
     this.postService.addCommentCount(postId, POST_COUNT_TYPE.PLUS);
 
-    const alarmParams = {
-      relativeId: postId,
-      targetUserId: targetUserId,
-      type: ALARM_TYPE.COMMENT,
-      message: '내 글에 댓글이 달렸습니다.',
-      isReaded: false,
-      created: new Date().getTime(),
-    };
-    this.alarmService.addAlarm(alarmParams);
+    if (userId !== targetUserId) {
+      const alarmParams = {
+        relativeId: postId,
+        targetUserId: targetUserId,
+        type: ALARM_TYPE.COMMENT,
+        message: '글에 댓글이 달렸습니다.',
+        isReaded: false,
+        created: new Date().getTime(),
+      };
+      this.alarmService.addAlarm(alarmParams);
+    }
 
     return data;
   }

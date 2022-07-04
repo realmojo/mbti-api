@@ -7,6 +7,7 @@ import {
   Param,
   Query,
 } from '@nestjs/common';
+import { BookmarkService } from 'src/bookmark/bookmark.service';
 import { CommentService } from 'src/comment/comment.service';
 import { HistoryService } from 'src/history/history.service';
 import { HISTORY_TYPE } from 'src/history/schema/constants';
@@ -19,6 +20,7 @@ export class PostController {
     private readonly postService: PostService,
     private readonly historyService: HistoryService,
     private readonly commentService: CommentService,
+    private readonly bookmarkService: BookmarkService,
   ) {}
 
   @Get('/list')
@@ -28,33 +30,39 @@ export class PostController {
       category,
       page: Number(page),
     };
-    console.log(params);
+    console.log(`get post list: ${category}, ${page}`);
     const data = await this.postService.getPostList(params);
     return data;
   }
 
   @Get('/mylist')
   async getMyPostList(@Query() query): Promise<Document[]> {
+    console.log('get my post');
     const { userId, page } = query;
     const params = {
       userId,
       page: Number(page),
     };
-    console.log(params);
     const data = await this.postService.getMyPostList(params);
     return data;
   }
 
   @Get('/:_id')
-  async getPost(@Param() param): Promise<any> {
+  async getPost(@Param() param, @Query() query): Promise<any> {
     const { _id } = param;
+    const { userId } = query;
     console.log(`get post: ${_id}`);
 
     //  조회수 올리기
     await this.postService.addViewCount(_id);
 
     const d = await this.postService.getPost(_id);
-    return d[0];
+
+    const bookmarkInfo = await this.bookmarkService.getBookmark({
+      postId: _id,
+      userId,
+    });
+    return { postInfo: d[0], bookmarkInfo };
   }
 
   @Delete('/:_id')

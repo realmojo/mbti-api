@@ -34,7 +34,6 @@ export class PostService {
     const limit = 5;
     // const offset = 3;
     const skip = limit * (page - 1);
-    console.log(skip, page);
     if (category === 'all') {
       return await this.postModel.aggregate([
         { $match: { status: POST_STATUS.ACTIVE } },
