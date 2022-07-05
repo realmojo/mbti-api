@@ -30,6 +30,7 @@ export class CommentController {
     @Param() param,
     @Query() query,
   ): Promise<Comment | undefined> {
+    console.log('add like comment count');
     const { commentId } = param;
     const { userId } = query;
 
@@ -54,6 +55,7 @@ export class CommentController {
 
   @Get('/:postId')
   async getComments(@Param() param): Promise<Comment[] | undefined> {
+    console.log('get comments');
     const { postId } = param;
     const params = {
       postId,
@@ -108,7 +110,7 @@ export class CommentController {
   }
 
   @Delete('/:_id')
-  async removeBlock(@Param() param): Promise<any | undefined> {
+  async removeComment(@Param() param): Promise<any | undefined> {
     const { _id } = param;
     return this.commentService.removeComment(_id);
   }

@@ -40,12 +40,14 @@ export class BookmarkController {
 
   @Delete('/:_id')
   async removeBookmark(@Param() param): Promise<Bookmark> {
+    console.log('remove bookmark');
     const { _id } = param;
     return await this.bookmarkService.removeBookmark(_id);
   }
 
   @Delete('/:postId/:userId')
   async removeBookmarkByPostId(@Param() param): Promise<Bookmark> {
+    console.log('remove bookmark by post id');
     return await this.bookmarkService.removeBookmarkByPostId(param);
   }
 }

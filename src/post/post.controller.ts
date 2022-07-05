@@ -68,7 +68,7 @@ export class PostController {
   @Delete('/:_id')
   async removePost(@Param() param): Promise<any> {
     const { _id } = param;
-    console.log(`delete post: ${_id}`);
+    console.log(`remove post: ${_id}`);
 
     // 관련 댓글 삭제
     await this.commentService.removeCommentByPostId(_id);
@@ -100,6 +100,7 @@ export class PostController {
     @Param() param,
     @Query() query,
   ): Promise<Document | undefined> {
+    console.log('get post like count');
     const { postId } = param;
     const { userId } = query;
 

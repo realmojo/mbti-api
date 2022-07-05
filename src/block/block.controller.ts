@@ -18,12 +18,14 @@ export class BlockController {
 
   @Get('/:userId')
   async getBlokcUsers(@Param() param): Promise<Block[] | undefined> {
+    console.log('get block users');
     const { userId } = param;
     return this.blockService.getBlokcUsers(userId);
   }
 
   @Delete('/:_id')
   async removeBlock(@Param() param): Promise<Block | undefined> {
+    console.log('remove block');
     const { _id } = param;
     return this.blockService.removeBlock(_id);
   }
