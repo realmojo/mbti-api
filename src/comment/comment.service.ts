@@ -41,6 +41,18 @@ export class CommentService {
     );
   }
 
+  async removeComment(_id: string): Promise<any | undefined> {
+    const filter = {
+      _id,
+    };
+    const set = {
+      $set: {
+        status: COMMENT_STATUS.DELETE,
+      },
+    };
+    return await this.commentModel.updateOne(filter, set, { new: true });
+  }
+
   async removeCommentByPostId(postId: string): Promise<any | undefined> {
     const filter = {
       postId,

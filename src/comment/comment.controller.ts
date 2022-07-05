@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, Query } from '@nestjs/common';
 import { AlarmService } from 'src/alarm/alarm.service';
 import { ALARM_TYPE } from 'src/alarm/schema/constants';
 import { HistoryService } from 'src/history/history.service';
@@ -97,5 +97,11 @@ export class CommentController {
     }
 
     return data;
+  }
+
+  @Delete('/:_id')
+  async removeBlock(@Param() param): Promise<Comment | undefined> {
+    const { _id } = param;
+    return this.commentService.removeComment(_id)
   }
 }

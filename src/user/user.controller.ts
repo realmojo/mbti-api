@@ -10,8 +10,18 @@ export class UserController {
   async getUser(@Query() query): Promise<User> {
     console.log('get user');
     const { userId } = query;
-    console.log(userId);
-    return await this.userService.getUser(userId);
+    const data = await this.userService.getUser(userId);
+
+    const blockUserId = [];
+    const d = data[0].blockUserId;
+    for (const i in d) {
+      blockUserId.push(d[i].targetUserId);
+    }
+    
+    return {
+      ...data[0],
+      blockUserId
+    };
   }
 
   @Post()

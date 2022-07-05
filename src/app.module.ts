@@ -13,6 +13,12 @@ import { BookmarkController } from './bookmark/bookmark.controller';
 import { BookmarkModule } from './bookmark/bookmark.module';
 import { HistoryController } from './history/history.controller';
 import { HistoryModule } from './history/history.module';
+import { BlockController } from './block/block.controller';
+import { BlockService } from './block/block.service';
+import { BlockModule } from './block/block.module';
+import { AccuseController } from './accuse/accuse.controller';
+import { AccuseService } from './accuse/accuse.service';
+import { AccuseModule } from './accuse/accuse.module';
 
 const mongodbURL = process.env.mongodbURL || 'mongodb://localhost/mbti';
 console.log(`mongodb connect url: ${mongodbURL}`);
@@ -26,6 +32,8 @@ console.log(`mongodb connect url: ${mongodbURL}`);
     AlarmModule,
     BookmarkModule,
     HistoryModule,
+    BlockModule,
+    AccuseModule,
   ],
   controllers: [
     AppController,
@@ -34,6 +42,8 @@ console.log(`mongodb connect url: ${mongodbURL}`);
     AlarmController,
     BookmarkController,
     HistoryController,
+    BlockController,
+    AccuseController,
   ],
   providers: [AppService],
 })

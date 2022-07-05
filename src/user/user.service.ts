@@ -8,8 +8,19 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async findOne(id: string): Promise<User | undefined> {
-    return await this.userModel.findOne({ id });
+  async findOne(id: string): Promise<any | undefined> {
+    return await this.userModel.aggregate([
+      { $match: { id: id } },
+      {
+        $lookup: {
+          from: 'blocks',
+          localField: 'id',
+          foreignField: 'userId',
+          as: 'blockUserId',
+        },
+      },
+      { $sort: { created: -1 } },
+    ])
   }
 
   async addUser(createUserDto: CreateUserDto): Promise<User | undefined> {
@@ -21,7 +32,7 @@ export class UserService {
     return createUser.save();
   }
 
-  async getUser(id: string): Promise<User | undefined> {
+  async getUser(id: string): Promise<any | undefined> {
     return await this.findOne(id);
   }
 
