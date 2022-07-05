@@ -6,9 +6,7 @@ import { AccuseService } from './accuse.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Accuse.name, schema: AccuseSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Accuse.name, schema: AccuseSchema }]),
   ],
   controllers: [AccuseController],
   providers: [AccuseService],

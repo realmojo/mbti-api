@@ -6,9 +6,7 @@ import { BlockService } from './block.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Block.name, schema: BlockSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Block.name, schema: BlockSchema }]),
   ],
   controllers: [BlockController],
   providers: [BlockService],

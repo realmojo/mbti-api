@@ -20,20 +20,32 @@ export class UserService {
         },
       },
       { $sort: { created: -1 } },
-    ])
+    ]);
   }
 
   async addUser(createUserDto: CreateUserDto): Promise<User | undefined> {
     const User = await this.findOne(createUserDto.id);
-    if (User) {
+    if (User.length !== 0) {
       return User;
     }
     const createUser = new this.userModel(createUserDto);
-    return createUser.save();
+    await createUser.save();
+    return await this.getUser(createUserDto.id);
   }
 
   async getUser(id: string): Promise<any | undefined> {
-    return await this.findOne(id);
+    const data = await this.findOne(id);
+
+    const blockUserId = [];
+    const d = data[0].blockUserId;
+    for (const i in d) {
+      blockUserId.push(d[i].targetUserId);
+    }
+
+    return {
+      ...data[0],
+      blockUserId,
+    };
   }
 
   async updateUser(params): Promise<User | undefined> {

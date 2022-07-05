@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AccuseService } from './accuse.service';
 import { Accuse } from './schema/accuse.schema';
 import { STATUS_TYPE } from './schema/constants';

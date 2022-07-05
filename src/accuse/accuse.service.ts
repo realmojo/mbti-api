@@ -10,7 +10,10 @@ export class AccuseService {
     @InjectModel(Accuse.name) private accuseModel: Model<AccuseDocument>,
   ) {}
 
-  async findOne(userId: string, relativeId: string): Promise<Accuse | undefined> {
+  async findOne(
+    userId: string,
+    relativeId: string,
+  ): Promise<Accuse | undefined> {
     return await this.accuseModel.findOne({ userId, relativeId });
   }
 

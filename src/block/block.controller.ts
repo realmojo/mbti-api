@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
 import { BlockService } from './block.service';
 import { Block } from './schema/block.schema';
 
@@ -17,21 +10,21 @@ export class BlockController {
   async addBlock(@Body() req): Promise<Block> {
     console.log('add block');
     const params = {
-      ...req, // userId, targetUserId, 
+      ...req, // userId, targetUserId,
       created: new Date().getTime(),
     };
     return await this.blockService.addBlock(params);
   }
 
   @Get('/:userId')
-  async getBlokcs(@Param() param): Promise<Block[] | undefined> {
+  async getBlokcUsers(@Param() param): Promise<Block[] | undefined> {
     const { userId } = param;
-    return this.blockService.getBlocks(userId);
+    return this.blockService.getBlokcUsers(userId);
   }
 
   @Delete('/:_id')
   async removeBlock(@Param() param): Promise<Block | undefined> {
     const { _id } = param;
-    return this.blockService.removeBlock(_id)
+    return this.blockService.removeBlock(_id);
   }
 }

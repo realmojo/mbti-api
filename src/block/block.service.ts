@@ -8,15 +8,16 @@ import { CreateBlockDto } from './dto/create-block.dto';
 export class BlockService {
   constructor(
     @InjectModel(Block.name) private blockModel: Model<BlockDocument>,
-  ) { }
+  ) {}
 
-  async findOne(userId: string, targetUserId: string): Promise<Block | undefined> {
+  async findOne(
+    userId: string,
+    targetUserId: string,
+  ): Promise<Block | undefined> {
     return await this.blockModel.findOne({ userId, targetUserId });
   }
 
-  async addBlock(
-    createBlockDto: CreateBlockDto,
-  ): Promise<Block | undefined> {
+  async addBlock(createBlockDto: CreateBlockDto): Promise<Block | undefined> {
     const Block = await this.findOne(
       createBlockDto.userId,
       createBlockDto.targetUserId,
@@ -28,17 +29,25 @@ export class BlockService {
     return createBlock.save();
   }
 
-  async getBlocks(userId: string): Promise<Block[] | undefined> {
+  async getBlokcUsers(userId: string): Promise<Block[] | undefined> {
     return await this.blockModel.aggregate([
       { $match: { userId: userId } },
       {
         $lookup: {
           from: 'users',
-          localField: 'userId',
+          localField: 'targetUserId',
           foreignField: 'id',
           as: 'userInfo',
         },
       },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [{ $arrayElemAt: ['$userInfo', 0] }, '$$ROOT'],
+          },
+        },
+      },
+      { $project: { postInfo: 0 } },
       { $unwind: '$userInfo' },
       { $sort: { created: -1 } },
     ]);

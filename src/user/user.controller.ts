@@ -10,18 +10,7 @@ export class UserController {
   async getUser(@Query() query): Promise<User> {
     console.log('get user');
     const { userId } = query;
-    const data = await this.userService.getUser(userId);
-
-    const blockUserId = [];
-    const d = data[0].blockUserId;
-    for (const i in d) {
-      blockUserId.push(d[i].targetUserId);
-    }
-    
-    return {
-      ...data[0],
-      blockUserId
-    };
+    return await this.userService.getUser(userId);
   }
 
   @Post()
@@ -31,7 +20,7 @@ export class UserController {
   }
 
   @Patch()
-  async updateUser(@Body() req): Promise<User> {
+  async updateUser(@Body() req): Promise<User | undefined> {
     console.log('update user');
     return await this.userService.updateUser(req);
   }
