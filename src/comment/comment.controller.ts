@@ -85,7 +85,7 @@ export class CommentController {
     console.log('add comment');
     const { postId, targetUserId, userId } = req;
     const params = {
-      ...req, // userId, targetUserId, PostId, comment, parent
+      ...req, // userId, targetUserId, postId, comment, parent
       likeCount: 0,
       status: COMMENT_STATUS.ACTIVE,
       created: new Date().getTime(),

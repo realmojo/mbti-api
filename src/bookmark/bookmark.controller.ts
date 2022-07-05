@@ -17,7 +17,6 @@ export class BookmarkController {
   @Get()
   async getBookmark(@Query() query): Promise<Bookmark | undefined> {
     console.log('get bookmark');
-    const { userId, postId } = query;
     return await this.bookmarkService.getBookmark(query);
   }
 
