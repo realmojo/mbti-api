@@ -19,6 +19,7 @@ import { BlockModule } from './block/block.module';
 import { AccuseController } from './accuse/accuse.controller';
 import { AccuseService } from './accuse/accuse.service';
 import { AccuseModule } from './accuse/accuse.module';
+import { VersionController } from './version/version.controller';
 
 const mongodbURL = process.env.mongodbURL || 'mongodb://localhost/mbti';
 console.log(`mongodb connect url: ${mongodbURL}`);
@@ -44,6 +45,7 @@ console.log(`mongodb connect url: ${mongodbURL}`);
     HistoryController,
     BlockController,
     AccuseController,
+    VersionController,
   ],
   providers: [AppService],
 })

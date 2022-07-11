@@ -82,6 +82,11 @@ export class PostController {
   @Post()
   async addPost(@Body() req): Promise<Document> {
     console.log('add post');
+
+    const { image } = req;
+    console.log(image);
+    console.log(req);
+
     const params = {
       ...req,
       viewCount: 0,

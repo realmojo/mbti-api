@@ -19,6 +19,9 @@ export class Post {
   content: string;
 
   @Prop()
+  image: string;
+
+  @Prop()
   viewCount: number;
 
   @Prop()

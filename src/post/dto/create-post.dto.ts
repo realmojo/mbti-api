@@ -13,6 +13,9 @@ export class CreatePostDto {
   @IsString()
   readonly content: string;
 
+  @IsString()
+  readonly image: string;
+
   @IsNumber()
   readonly viewCount: number;
 
